@@ -35,3 +35,4 @@ npm run dev
 After running it open the browser and navigate <https://localhost:3000> this page will show a login screen. Now since we are running it first time we have to sign up first. In the login page you have a link to sign up page click the link and we will reach to the sign up page. Now type email and password according to the given conditions and hit sign up.
 
 After signing up successfully login page will appear use email and password to login then we will reach at the sentiment analysis page.
+You can check out the running app at <https://hanabi-frontend.vercel.app/>
