@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { Bar, Pie } from "react-chartjs-2";
+import { ClipLoader } from "react-spinners";
 
 import {
   Chart as ChartJS,
@@ -31,11 +32,14 @@ function UploadAndVisualize() {
   const [file, setFile] = useState(null);
   const [sentimentData, setSentimentData] = useState(null);
   const [tableData, setTableData] = useState([]);
-  const router=useRouter()
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-  
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
   if (!token) {
-    if(typeof window!=undefined) {console.log("You must be logged in to upload a file.");}
+    if (typeof window !== "undefined") {
+      console.log("You must be logged in to upload a file.");
+    }
     return;
   }
 
@@ -54,8 +58,9 @@ function UploadAndVisualize() {
     formData.append("file", file);
 
     try {
+      setLoading(true); // Start the loader
       const res = await axios.post("https://rahim-khan-iitg-sentiment-analysis.hf.space/upload-csv/", formData, {
-        headers: { "Content-Type": "multipart/form-data" ,"Authorization":`Bearer ${token}`},
+        headers: { "Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}` },
       });
 
       // Set sentiment counts for chart visualization
@@ -65,6 +70,8 @@ function UploadAndVisualize() {
       setTableData(res.data.sentiments); // Assuming the backend sends sentiment data in this format
     } catch (error) {
       console.error("Error analyzing sentiments:", error.message);
+    } finally {
+      setLoading(false); // Stop the loader
     }
   };
 
@@ -85,8 +92,7 @@ function UploadAndVisualize() {
       </form>
       <button
         onClick={() => {
-          if(typeof window!=undefined)
-          {
+          if (typeof window !== "undefined") {
             localStorage.removeItem("token");
           }
           router.push("/login");
@@ -96,7 +102,14 @@ function UploadAndVisualize() {
         Logout
       </button>
 
-      {sentimentData && (
+      {loading && (
+        <div className="text-center my-6">
+          <ClipLoader color="#36D7B7" size={50} />
+          <p className="mt-2 text-gray-700">Processing file, please wait...</p>
+        </div>
+      )}
+
+      {sentimentData && !loading && (
         <div className="mt-12">
           <h2 className="text-2xl font-medium text-gray-800 mb-6">Sentiment Analysis</h2>
 

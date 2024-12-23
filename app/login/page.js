@@ -3,14 +3,18 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation"; // Correct import for app directory
 import Link from "next/link";
+import ClipLoader from "react-spinners/ClipLoader";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await axios.post("https://rahim-khan-iitg-sentiment-analysis.hf.space/login/", {
@@ -28,6 +32,8 @@ export default function Login() {
     } catch (err) {
       setError("Invalid email or password");
       console.error("Login error:", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,8 +72,9 @@ export default function Login() {
           <button
             type="submit"
             className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300"
+            disabled={loading}
           >
-            Login
+            {loading ? <ClipLoader size={20} color={"#ffffff"} /> : "Login"}
           </button>
           <Link href={'/signup/'} className="text-blue-500">Sign up</Link>
         </form>
