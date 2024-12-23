@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { Bar, Pie } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,10 +32,10 @@ function UploadAndVisualize() {
   const [sentimentData, setSentimentData] = useState(null);
   const [tableData, setTableData] = useState([]);
   const router=useRouter()
-  const token = localStorage.getItem("token"); // Get the token
-
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  
   if (!token) {
-    alert("You must be logged in to upload a file.");
+    if(typeof window!=undefined) {console.log("You must be logged in to upload a file.");}
     return;
   }
 
@@ -84,7 +85,10 @@ function UploadAndVisualize() {
       </form>
       <button
         onClick={() => {
-          localStorage.removeItem("token");
+          if(typeof window!=undefined)
+          {
+            localStorage.removeItem("token");
+          }
           router.push("/login");
         }}
         className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"

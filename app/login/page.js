@@ -19,7 +19,9 @@ export default function Login() {
       });
 
       // Assuming the backend returns a token
-      localStorage.setItem("token", res.data.token);
+      if (typeof window != undefined) {
+        localStorage.setItem("token", res.data.token);
+      }
 
       // Redirect to the main app page
       router.push("/"); // Works correctly with next/navigation
