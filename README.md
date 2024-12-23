@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hanabi Sentiment Analysis App Frontend
 
-## Getting Started
+This app is the fronted of the two part app designed for sentiment analysis. Where you can upload your csv file to predict the sentiments of the sentences in the ```text``` column.
+Backend can be found <https://github.com/rahimkhan76270/hanabi-backend.git>
+To run this app locally follow the given steps:-
 
-First, run the development server:
+### Step 1
+
+Clone the repo using the terminal/command prompt
+
+```bash
+git clone  https://github.com/rahimkhan76270/hanabi-frontend.git
+```
+
+this will copy all the files and folders of the repo in the folder hanabi-frontend now go to the folder using the command
+
+```bash
+cd hanabi-frontend
+```
+
+### Step 2
+
+Install the dependencies using the command (for this command to work you should have installed node js on your system)
+
+```bash
+npm install
+```
+
+After installing we are now ready to run our app. Now run the command
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After running it open the browser and navigate <https://localhost:3000> this page will show a login screen. Now since we are running it first time we have to sign up first. In the login page you have a link to sign up page click the link and we will reach to the sign up page. Now type email and password according to the given conditions and hit sign up.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+After signing up successfully login page will appear use email and password to login then we will reach at the sentiment analysis page.
